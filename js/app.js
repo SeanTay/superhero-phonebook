@@ -1,3 +1,22 @@
+"use strict";
+(function(){
+  angular
+    .module("heroes",['ngRoute'])
+    .controller("heroes_controller", HeroesController);
+
+    function HeroesController(){
+      var vm = this;
+      vm.data = superheroList;
+
+      vm.new_hero = {};
+      vm.create = function(){
+        vm.data.push(angular.copy(vm.new_hero));
+        vm.new_hero = {};
+      }
+    }
+
+
+})();
 var superheroList = [
   {
     name: "Spiderman",

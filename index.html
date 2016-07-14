@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-ng-app="heroes">
 <head>
   <meta charset="utf-8">
   <title>Superhero Phonebook</title>
@@ -11,21 +11,48 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/config.js"></script>
 </head>
-<body>
+<body data-ng-controller="heroes_controller as vm">
   <h1>Superheroes</h1>
+  <div ng-view></div>
   <div class="picture">
-    Picture:
+    Picture: <img ng-src="{{vm.currentHero}}">
   </div>
   <div class="search">
-    Search:
+    Search: <input data-ng-model="vm.filter_on" type=text>
   </div>
   <table class="table">
     <thead>
       <tr>
-        <th>Name:</th>
-        <th>Number:</th>
-        <th></th>
+        <th>
+        <input type ="text"
+        data-ng-model="vm.new_hero.name"
+        placeholder="Name"/>
+        </th>
+        <th>
+        <input type ="number"
+        data-ng-model="vm.new_hero.number"
+        placeholder="Number"/>
+        </th>
+        <th>
+        <input type ="text"
+        data-ng-model="vm.new_hero.group"
+        placeholder="Group"/>
+        </th>
+      </tr>
+      <tr>
+        <th>
+        <input type ="text"
+        data-ng-model="vm.new_hero.img"
+        placeholder="Image URL"/>
+        </th>
+        <th data-ng-click="vm.create()"> click here to add </th>
+      </tr>
+      <tr class={{hero.group.toLowerCase()}} data-ng-repeat = "hero in vm.data | filter: vm.filter_on">
+        <th>Name: {{hero.name}} </th>
+        <th>Number: {{hero.number}}</th>
+        <th data-ng-click = "vm.currentHero = hero.img">+</th>
       </tr>
     </thead>
     <tbody>
